@@ -1,7 +1,7 @@
 package com.example.leastofficialpokedex.model
 
-class PokemonNameResponse {
-    class PokemonName {
+class PokemonData {
+    class Sprites {
 
     }
 }
