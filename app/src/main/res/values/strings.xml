@@ -6,4 +6,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="picture_of_this_pokemon">Picture of this Pokemon</string>
+    <string name="tap_prompt">Tap a Pokemon\'s name to learn Fun Facts about them!</string>
 </resources>
