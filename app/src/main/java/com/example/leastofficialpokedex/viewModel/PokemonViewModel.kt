@@ -1,4 +1,4 @@
-package com.example.leastofficialpokedex.viewmodel
+package com.example.leastofficialpokedex.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class PokemonViewmodel: ViewModel() {
+class PokemonViewModel: ViewModel() {
     companion object {
         const val MAX_POKEMON = 802
         const val BUFFER_SIZE = 20
