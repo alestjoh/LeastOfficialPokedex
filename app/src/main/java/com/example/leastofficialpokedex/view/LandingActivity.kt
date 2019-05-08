@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leastofficialpokedex.R
 import com.example.leastofficialpokedex.viewmodel.PokemonViewmodel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,5 +27,8 @@ class LandingActivity : AppCompatActivity() {
 //            data -> tv_defaultText_landing.text = data.sprites.front_default
 //        })
 //        pokemonViewmodel.getData("bulbasaur")
+
+        recyclerView_names_landing.layoutManager = LinearLayoutManager(this)
+        recyclerView_names_landing.adapter = PokemonNameRecyclerAdapter(pokemonViewmodel)
     }
 }
