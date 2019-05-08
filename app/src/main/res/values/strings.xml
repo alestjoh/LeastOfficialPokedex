@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LeastOfficialPokedex</string>
+    <string name="search_by_pokemon_name">Search by Pokemon Name</string>
 </resources>
