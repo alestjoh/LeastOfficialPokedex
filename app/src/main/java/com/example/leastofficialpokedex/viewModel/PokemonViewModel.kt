@@ -25,7 +25,8 @@ class PokemonViewModel: ViewModel() {
     val pokemonData: LiveData<PokemonModel.PokemonData> get() = myPokemonData
 
     fun getMoreNames() {
-        val limit = if (startIndex + BUFFER_SIZE <= MAX_POKEMON) BUFFER_SIZE else MAX_POKEMON - startIndex
+        val limit = if (startIndex + BUFFER_SIZE <= MAX_POKEMON) BUFFER_SIZE
+            else MAX_POKEMON - startIndex
 
         if (limit > 0) {
             disposable?.dispose()
@@ -34,8 +35,10 @@ class PokemonViewModel: ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { result: PokemonModel.PokemonListResponse ->
                     myNameList.postValue(result.results)
-                    startIndex += BUFFER_SIZE
+                    startIndex += limit
                 }
+        } else {
+            myNameList.postValue(listOf())
         }
     }
 

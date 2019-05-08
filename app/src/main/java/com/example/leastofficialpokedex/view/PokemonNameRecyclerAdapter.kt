@@ -21,9 +21,11 @@ class PokemonNameRecyclerAdapter(
         listOf<PokemonModel.PokemonName>().toMutableList()
     private var workingList: List<PokemonModel.PokemonName>? = null
     private val observer: Observer<List<PokemonModel.PokemonName>> = Observer {
-        nameList.addAll(it)
-        notifyDataSetChanged()
-        pokemonViewModel.getMoreNames()
+        if (it.isNotEmpty()) {
+            nameList.addAll(it)
+            notifyDataSetChanged()
+            pokemonViewModel.getMoreNames()
+        }
     }
     private var mySearchString: String = ""
     var searchString: String
