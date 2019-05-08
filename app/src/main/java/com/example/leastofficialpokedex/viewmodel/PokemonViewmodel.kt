@@ -12,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 class PokemonViewmodel: ViewModel() {
     companion object {
         const val MAX_POKEMON = 802
+        const val BUFFER_SIZE = 20
         val api: PokemonDatabaseApi by lazy { PokemonDatabaseApi.create() }
         var disposable: Disposable? = null
     }
@@ -24,7 +25,7 @@ class PokemonViewmodel: ViewModel() {
     val pokemonData: LiveData<PokemonModel.PokemonData> get() = myPokemonData
 
     fun getMoreNames() {
-        val limit = if (startIndex + 20 <= MAX_POKEMON) 20 else MAX_POKEMON - startIndex
+        val limit = if (startIndex + BUFFER_SIZE <= MAX_POKEMON) BUFFER_SIZE else MAX_POKEMON - startIndex
 
         if (limit > 0) {
             disposable?.dispose()
@@ -33,6 +34,7 @@ class PokemonViewmodel: ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { result: PokemonModel.PokemonListResponse ->
                     myNameList.postValue(result.results)
+                    startIndex += BUFFER_SIZE
                 }
         }
     }

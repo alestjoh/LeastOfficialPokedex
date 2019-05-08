@@ -24,7 +24,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/cardView">
+            android:id="@+id/cardView"
+            app:cardElevation="6dp">
 
         <EditText
                 android:layout_width="match_parent"
