@@ -1,7 +1,5 @@
 package com.example.leastofficialpokedex.model
 
-// Valid pokemon indexes: 1-802, inclusive
-
 object PokemonModel {
 
     data class PokemonData(val name: String, val sprites: Sprites)

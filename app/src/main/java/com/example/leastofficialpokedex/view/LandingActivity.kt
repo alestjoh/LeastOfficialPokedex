@@ -1,7 +1,8 @@
 package com.example.leastofficialpokedex.view
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.leastofficialpokedex.R
 import com.example.leastofficialpokedex.viewmodel.PokemonViewmodel
@@ -14,5 +15,12 @@ class LandingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        pokemonViewmodel = ViewModelProviders.of(this)
+            .get(PokemonViewmodel::class.java)
+        pokemonViewmodel.names.observe(this, Observer {
+                list -> tv_defaultText_landing.text = list[0].name
+        })
+        pokemonViewmodel.getMoreNames()
     }
 }
