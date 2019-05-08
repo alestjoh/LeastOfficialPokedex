@@ -51,7 +51,6 @@ class PokemonViewmodel: ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-
         disposable?.dispose()
     }
 }
