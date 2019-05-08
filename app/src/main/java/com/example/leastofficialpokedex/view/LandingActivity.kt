@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClickListener {
 
+    private var fragment: PokemonDetailsFragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,9 +25,20 @@ class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClic
     }
 
     override fun onClick(pokemonName: String) {
-        val fragment = PokemonDetailsFragment(pokemonName)
+        if (fragment != null) {
+            removeFragment()
+        }
+
+        fragment = PokemonDetailsFragment(pokemonName)
         supportFragmentManager.beginTransaction()
-            .add(R.id.frameLayout_fragmentHolder_landing, fragment)
+            .add(R.id.frameLayout_fragmentHolder_landing, fragment!!)
+            .addToBackStack(pokemonName)
+            .commit()
+    }
+
+    private fun removeFragment() {
+        supportFragmentManager.beginTransaction()
+            .remove(fragment!!)
             .commit()
     }
 }
