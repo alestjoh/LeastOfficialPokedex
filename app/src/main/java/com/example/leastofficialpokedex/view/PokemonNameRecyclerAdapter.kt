@@ -23,6 +23,7 @@ class PokemonNameRecyclerAdapter(
     private val observer: Observer<List<PokemonModel.PokemonName>> = Observer {
         if (it.isNotEmpty()) {
             nameList.addAll(it)
+            searchString = mySearchString
             notifyDataSetChanged()
             pokemonViewModel.getMoreNames()
         }

@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_pokemon_details.*
 import java.lang.Exception
 
-class PokemonDetailsFragment(private val pokemonName: String) : Fragment() {
+class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
