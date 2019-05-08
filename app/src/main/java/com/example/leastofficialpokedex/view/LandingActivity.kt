@@ -59,17 +59,12 @@ class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClic
             supportFragmentManager.popBackStackImmediate(
                 fragment!!.pokemonName,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            fragment = null
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
         super.onSaveInstanceState(outState, outPersistentState)
-//        if (fragment != null) {
-//            outState?.putString(POKEMON_NAME, fragment?.pokemonName)
-//            supportFragmentManager.popBackStackImmediate(
-//                fragment!!.pokemonName,
-//                FragmentManager.POP_BACK_STACK_INCLUSIVE)
-//        }
     }
 
     class WatchSearchString(val adapter: PokemonNameRecyclerAdapter): TextWatcher {
