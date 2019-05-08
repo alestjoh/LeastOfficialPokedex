@@ -5,6 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PokemonDatabaseApi {
@@ -15,8 +16,9 @@ interface PokemonDatabaseApi {
         @Query("limit") limit: Int = 20):
             Observable<PokemonModel.PokemonListResponse>
 
-    @GET("")
-    fun getPokemonData(): Observable<PokemonModel.PokemonData>
+    @GET("pokemon/{pokemonName}/")
+    fun getPokemonData(@Path("pokemonName") pokemonName: String):
+            Observable<PokemonModel.PokemonData>
 
     companion object {
         fun create(): PokemonDatabaseApi {

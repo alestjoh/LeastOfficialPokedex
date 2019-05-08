@@ -18,9 +18,13 @@ class LandingActivity : AppCompatActivity() {
 
         pokemonViewmodel = ViewModelProviders.of(this)
             .get(PokemonViewmodel::class.java)
-        pokemonViewmodel.names.observe(this, Observer {
-                list -> tv_defaultText_landing.text = list[0].name
-        })
-        pokemonViewmodel.getMoreNames()
+//        pokemonViewmodel.nameList.observe(this, Observer {
+//                list -> tv_defaultText_landing.text = list[0].name
+//        })
+//        pokemonViewmodel.getMoreNames()
+//        pokemonViewmodel.pokemonData.observe(this, Observer {
+//            data -> tv_defaultText_landing.text = data.sprites.front_default
+//        })
+//        pokemonViewmodel.getData("bulbasaur")
     }
 }

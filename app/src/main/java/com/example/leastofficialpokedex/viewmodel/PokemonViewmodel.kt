@@ -17,10 +17,11 @@ class PokemonViewmodel: ViewModel() {
     }
     var startIndex = 0
 
-    private val nameList: MutableLiveData<List<PokemonModel.PokemonName>> =
-        MutableLiveData()
-    val names: LiveData<List<PokemonModel.PokemonName>>
-        get() = nameList
+    private val myNameList: MutableLiveData<List<PokemonModel.PokemonName>> = MutableLiveData()
+    val nameList: LiveData<List<PokemonModel.PokemonName>> get() = myNameList
+
+    private val myPokemonData: MutableLiveData<PokemonModel.PokemonData> = MutableLiveData()
+    val pokemonData: LiveData<PokemonModel.PokemonData> get() = myPokemonData
 
     fun getMoreNames() {
         val limit = if (startIndex + 20 <= MAX_POKEMON) 20 else MAX_POKEMON - startIndex
@@ -31,9 +32,19 @@ class PokemonViewmodel: ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { result: PokemonModel.PokemonListResponse ->
-                    nameList.postValue(result.results)
+                    myNameList.postValue(result.results)
                 }
         }
+    }
+
+    fun getData(name: String) {
+        disposable?.dispose()
+        disposable = api.getPokemonData(name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { result: PokemonModel.PokemonData ->
+                myPokemonData.postValue(result)
+            }
     }
 
     override fun onCleared() {
