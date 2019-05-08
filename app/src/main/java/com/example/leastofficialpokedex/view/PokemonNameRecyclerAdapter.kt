@@ -19,11 +19,20 @@ class PokemonNameRecyclerAdapter(
 
     private val nameList: MutableList<PokemonModel.PokemonName> =
         listOf<PokemonModel.PokemonName>().toMutableList()
+    private var workingList: List<PokemonModel.PokemonName>? = null
     private val observer: Observer<List<PokemonModel.PokemonName>> = Observer {
         nameList.addAll(it)
         notifyDataSetChanged()
         pokemonViewModel.getMoreNames()
     }
+    private var mySearchString: String = ""
+    var searchString: String
+        get() = mySearchString
+        set(value) {
+            mySearchString = value
+            workingList = nameList.filter { it.name.contains(mySearchString) }
+            notifyDataSetChanged()
+        }
 
     init {
         pokemonViewModel.startIndex = 0
@@ -38,11 +47,12 @@ class PokemonNameRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: PokemonNameViewHolder, position: Int) {
-        holder.nameText.text = nameList[position].name
-        holder.cardView.setOnClickListener { nameClickListener.onClick(nameList[position].name) }
+        val name = workingList?.get(position)?.name ?: nameList[position].name
+        holder.nameText.text = name
+        holder.cardView.setOnClickListener { nameClickListener.onClick(name) }
     }
 
-    override fun getItemCount(): Int = nameList.size
+    override fun getItemCount(): Int = workingList?.size ?: nameList.size
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)

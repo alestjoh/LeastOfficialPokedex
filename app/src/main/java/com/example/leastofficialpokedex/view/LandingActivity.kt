@@ -2,6 +2,8 @@ package com.example.leastofficialpokedex.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leastofficialpokedex.R
@@ -19,9 +21,11 @@ class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClic
         val pokemonViewModel = ViewModelProviders.of(this)
             .get(PokemonViewModel::class.java)
 
+        val adapter = PokemonNameRecyclerAdapter(pokemonViewModel, this)
         recyclerView_names_landing.layoutManager = LinearLayoutManager(this)
-        recyclerView_names_landing.adapter =
-            PokemonNameRecyclerAdapter(pokemonViewModel, this)
+        recyclerView_names_landing.adapter = adapter
+
+        et_search_landing.addTextChangedListener(WatchSearchString(adapter))
     }
 
     override fun onClick(pokemonName: String) {
@@ -40,5 +44,14 @@ class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClic
         supportFragmentManager.beginTransaction()
             .remove(fragment!!)
             .commit()
+    }
+
+    class WatchSearchString(val adapter: PokemonNameRecyclerAdapter): TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            adapter.searchString = s.toString()
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
     }
 }
