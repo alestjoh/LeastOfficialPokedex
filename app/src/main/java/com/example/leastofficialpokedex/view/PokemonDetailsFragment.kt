@@ -33,6 +33,8 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
                 iv_pokemon_detailsFragment,
                 ImageLoadCallback(progressBar_imageLoading_detailsFragment, this.context!!))
             iv_pokemon_detailsFragment.visibility = View.VISIBLE
+
+            tv_name_detailsFragment.text = it.species.name.capitalize()
         })
         viewModel.getData(pokemonName)
 

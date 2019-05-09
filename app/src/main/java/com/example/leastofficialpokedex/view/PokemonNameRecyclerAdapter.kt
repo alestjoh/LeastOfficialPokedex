@@ -61,9 +61,9 @@ class PokemonNameRecyclerAdapter(
      */
     private fun stripExtraDataFromName(name: String): String {
         return if (name.contains("-"))
-            name.substring(0, name.indexOf('-'))
+            name.substring(0, name.indexOf('-')).capitalize()
         else
-            name
+            name.capitalize()
     }
 
     override fun getItemCount(): Int = workingList?.size ?: nameList.size
