@@ -25,10 +25,10 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModel: PokemonViewModel = ViewModelProviders
+        val pokemonViewModel: PokemonViewModel = ViewModelProviders
             .of(this)
             .get(PokemonViewModel::class.java)
-        viewModel.pokemonData.observe(this, Observer {
+        pokemonViewModel.pokemonData.observe(this, Observer {
             Picasso.get().load(it.sprites.front_default).into(
                 iv_pokemon_detailsFragment,
                 ImageLoadCallback(progressBar_imageLoading_detailsFragment, this.context!!))
@@ -36,7 +36,10 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
 
             tv_name_detailsFragment.text = it.species.name.capitalize()
         })
-        viewModel.getData(pokemonName)
+        pokemonViewModel.getData(pokemonName)
+
+
+
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pokemon_details, container, false)
