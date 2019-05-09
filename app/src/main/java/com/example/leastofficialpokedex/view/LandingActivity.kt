@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClickListener {
 
     companion object {
-        const val POKEMON_NAME = "LandingActivity.PokemonName"
+        const val POKEMON_NAME = "LandingActivity.DatabaseName"
     }
 
     private var fragment: PokemonDetailsFragment? = null

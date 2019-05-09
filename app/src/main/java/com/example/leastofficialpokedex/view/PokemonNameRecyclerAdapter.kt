@@ -17,10 +17,10 @@ class PokemonNameRecyclerAdapter(
     private val nameClickListener: NameClickListener):
     RecyclerView.Adapter<PokemonNameRecyclerAdapter.PokemonNameViewHolder>() {
 
-    private val nameList: MutableList<PokemonModel.PokemonName> =
-        listOf<PokemonModel.PokemonName>().toMutableList()
-    private var workingList: List<PokemonModel.PokemonName>? = null
-    private val observer: Observer<List<PokemonModel.PokemonName>> = Observer {
+    private val nameList: MutableList<PokemonModel.DatabaseName> =
+        listOf<PokemonModel.DatabaseName>().toMutableList()
+    private var workingList: List<PokemonModel.DatabaseName>? = null
+    private val observer: Observer<List<PokemonModel.DatabaseName>> = Observer {
         if (it.isNotEmpty()) {
             nameList.addAll(it)
             searchString = mySearchString
@@ -51,8 +51,19 @@ class PokemonNameRecyclerAdapter(
 
     override fun onBindViewHolder(holder: PokemonNameViewHolder, position: Int) {
         val name = workingList?.get(position)?.name ?: nameList[position].name
-        holder.nameText.text = name
+        holder.nameText.text = stripExtraDataFromName(name)
         holder.cardView.setOnClickListener { nameClickListener.onClick(name) }
+    }
+
+    /**
+     * Method to remove modifiers to the pokemon species
+     * like form designations or "medium"
+     */
+    private fun stripExtraDataFromName(name: String): String {
+        return if (name.contains("-"))
+            name.substring(0, name.indexOf('-'))
+        else
+            name
     }
 
     override fun getItemCount(): Int = workingList?.size ?: nameList.size

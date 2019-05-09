@@ -18,8 +18,8 @@ class PokemonViewModel: ViewModel() {
     }
     var startIndex = 0
 
-    private val myNameList: MutableLiveData<List<PokemonModel.PokemonName>> = MutableLiveData()
-    val nameList: LiveData<List<PokemonModel.PokemonName>> get() = myNameList
+    private val myNameList: MutableLiveData<List<PokemonModel.DatabaseName>> = MutableLiveData()
+    val nameList: LiveData<List<PokemonModel.DatabaseName>> get() = myNameList
 
     private val myPokemonData: MutableLiveData<PokemonModel.PokemonData> = MutableLiveData()
     val pokemonData: LiveData<PokemonModel.PokemonData> get() = myPokemonData
