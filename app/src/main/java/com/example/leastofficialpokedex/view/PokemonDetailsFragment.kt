@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 
 import com.example.leastofficialpokedex.R
 import com.example.leastofficialpokedex.viewModel.PokemonViewModel
+import com.example.leastofficialpokedex.viewmodel.TwitterViewModel
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_pokemon_details.*
@@ -25,8 +26,7 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val pokemonViewModel: PokemonViewModel = ViewModelProviders
-            .of(this)
+        val pokemonViewModel = ViewModelProviders.of(this)
             .get(PokemonViewModel::class.java)
         pokemonViewModel.pokemonData.observe(this, Observer {
             Picasso.get().load(it.sprites.front_default).into(
@@ -38,8 +38,15 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
         })
         pokemonViewModel.getData(pokemonName)
 
-
-
+        val twitterViewModel = ViewModelProviders.of(this)
+            .get(TwitterViewModel::class.java)
+        twitterViewModel.error.observe(this, Observer {
+            tv_testText_detailsFragment.text = it
+        })
+        twitterViewModel.statuses.observe(this, Observer {
+            tv_testText_detailsFragment.text = it.size.toString()
+        })
+        twitterViewModel.getStatuses("bulbasaur")
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pokemon_details, container, false)
