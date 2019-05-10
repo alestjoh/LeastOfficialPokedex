@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.leastofficialpokedex.R
 import com.example.leastofficialpokedex.viewModel.PokemonViewModel
@@ -45,6 +46,11 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
         })
         twitterViewModel.statuses.observe(this, Observer {
             tv_testText_detailsFragment.text = it[0].text
+            //viewPager_detailsFragment.adapter = TweetRecyclerAdapter(childFragmentManager, it)
+            //TweetRecyclerAdapter(manager, it)
+            recyclerView_detailsFragment.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerView_detailsFragment.adapter = TweetRecyclerAdapter(it)
         })
         twitterViewModel.getStatuses(pokemonName)
 
