@@ -31,14 +31,11 @@
             <ImageView
                     android:src="@drawable/pokeball"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="180dp"
                     android:id="@+id/iv_pokemon_detailsFragment"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginTop="24dp"
                     android:contentDescription="@string/picture_of_this_pokemon"
                     android:scaleType="fitCenter"
                     android:visibility="invisible"/>
@@ -60,7 +57,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_name_detailsFragment"
-                    android:layout_marginTop="16dp"
                     app:layout_constraintTop_toBottomOf="@+id/iv_pokemon_detailsFragment"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
@@ -68,21 +64,6 @@
                     android:layout_marginEnd="16dp"
                     android:textColor="#111111"
                     android:textSize="30sp"/>
-
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_testText_detailsFragment"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="32dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"/>
 
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="0dp"

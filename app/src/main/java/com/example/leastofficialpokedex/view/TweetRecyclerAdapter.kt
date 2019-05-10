@@ -19,7 +19,7 @@ class TweetRecyclerAdapter(private val tweets: List<Tweet>):
     }
 
     override fun onBindViewHolder(holder: TweetViewHolder, position: Int) {
-        holder.textEntry.text = tweets[position].text
+        holder.textEntry.text = tweets[position].text.replace("&amp;", "&")
         holder.annotation.text = holder.view.context.getString(R.string.dex_entry_provided_by)
             .format(tweets[position].user.name)
     }

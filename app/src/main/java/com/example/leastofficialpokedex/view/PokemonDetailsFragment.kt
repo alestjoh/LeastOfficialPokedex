@@ -27,35 +27,41 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        observePokemonViewModel()
+        observeTwitterViewModel()
+
+        return inflater.inflate(R.layout.fragment_pokemon_details, container, false)
+    }
+
+    private fun observeTwitterViewModel() {
+        val twitterViewModel = ViewModelProviders.of(this)
+            .get(TwitterViewModel::class.java)
+
+        twitterViewModel.statuses.observe(this, Observer {
+            recyclerView_detailsFragment.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            recyclerView_detailsFragment.adapter = TweetRecyclerAdapter(it)
+        })
+
+        twitterViewModel.getStatuses(pokemonName)
+    }
+
+    private fun observePokemonViewModel() {
         val pokemonViewModel = ViewModelProviders.of(this)
             .get(PokemonViewModel::class.java)
+
         pokemonViewModel.pokemonData.observe(this, Observer {
+
             Picasso.get().load(it.sprites.front_default).into(
                 iv_pokemon_detailsFragment,
-                ImageLoadCallback(progressBar_imageLoading_detailsFragment, this.context!!))
-            iv_pokemon_detailsFragment.visibility = View.VISIBLE
+                ImageLoadCallback(progressBar_imageLoading_detailsFragment, this.context!!)
+            )
 
+            iv_pokemon_detailsFragment.visibility = View.VISIBLE
             tv_name_detailsFragment.text = it.species.name.capitalize()
         })
         pokemonViewModel.getData(pokemonName)
-
-        val twitterViewModel = ViewModelProviders.of(this)
-            .get(TwitterViewModel::class.java)
-        twitterViewModel.error.observe(this, Observer {
-            tv_testText_detailsFragment.text = it
-        })
-        twitterViewModel.statuses.observe(this, Observer {
-            tv_testText_detailsFragment.text = it[0].text
-            //viewPager_detailsFragment.adapter = TweetRecyclerAdapter(childFragmentManager, it)
-            //TweetRecyclerAdapter(manager, it)
-            recyclerView_detailsFragment.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            recyclerView_detailsFragment.adapter = TweetRecyclerAdapter(it)
-        })
-        twitterViewModel.getStatuses(pokemonName)
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pokemon_details, container, false)
     }
 
     internal class ImageLoadCallback(
