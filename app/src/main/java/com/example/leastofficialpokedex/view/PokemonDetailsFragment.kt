@@ -44,11 +44,9 @@ class PokemonDetailsFragment(val pokemonName: String) : Fragment() {
             tv_testText_detailsFragment.text = it
         })
         twitterViewModel.statuses.observe(this, Observer {
-            tv_testText_detailsFragment.text = it.size.toString()
+            tv_testText_detailsFragment.text = it[0].text
         })
-        //twitterViewModel.getStatuses("bulbasaur")
-        //twitterViewModel.getStatusesPenicillin(pokemonName)
-        twitterViewModel.getStatusesTwitterKit(pokemonName)
+        twitterViewModel.getStatuses(pokemonName)
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pokemon_details, container, false)
