@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import com.example.leastofficialpokedex.R
 import com.twitter.sdk.android.core.models.Tweet
+import kotlinx.android.synthetic.main.fragment_tweet.*
 
 class TweetFragment(private val tweet: Tweet) : Fragment() {
 
@@ -15,6 +16,10 @@ class TweetFragment(private val tweet: Tweet) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        tv_text_tweetFragment.text = tweet.text
+        tv_annotation_tweetFragment.text = getString(R.string.dex_entry_provided_by).format(tweet.user.name)
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tweet, container, false)
     }
