@@ -27,7 +27,7 @@ class TwitterViewModel: ViewModel() {
     fun getStatuses(query: String) {
         val apiClient = TwitterCore.getInstance().apiClient
         apiClient.searchService
-            .tweets(query, null, null, null,
+            .tweets(query, null, "en", null,
                 null, null, null,
                 null, null, null)
             .enqueue(CallBackKt(myStatuses, myError))

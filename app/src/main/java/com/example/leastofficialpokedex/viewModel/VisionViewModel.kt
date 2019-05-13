@@ -15,13 +15,13 @@ import com.google.protobuf.ByteString
 import java.io.ByteArrayOutputStream
 import java.lang.StringBuilder
 
-class VisionViewModel(val context: Context): ViewModel() {
+class VisionViewModel: ViewModel() {
 
     private val myMessage = MutableLiveData<String>()
     val message: LiveData<String>
         get() = myMessage
 
-    fun visionTest() {
+    fun visionTest(context: Context) {
         val vision = ImageAnnotatorClient.create()
         val drawable = context.getDrawable(R.drawable.pokeball)
         //val bytes = ByteString.copyFrom(Files.readAllBytes(Paths.get("./res/pokeball.png")))

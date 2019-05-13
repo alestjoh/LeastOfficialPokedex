@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leastofficialpokedex.R
 import com.example.leastofficialpokedex.viewModel.PokemonViewModel
+import com.example.leastofficialpokedex.viewModel.VisionViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClickListener {
@@ -33,6 +36,13 @@ class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClic
 
         et_search_landing.addTextChangedListener(WatchSearchString(adapter))
         adapter.searchString = ""
+
+        val visionViewModel = ViewModelProviders.of(this)
+            .get(VisionViewModel::class.java)
+        visionViewModel.message.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        })
+        //visionViewModel.visionTest(this)
     }
 
     override fun onClick(pokemonName: String) {
@@ -48,9 +58,7 @@ class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClic
     }
 
     private fun removeFragment() {
-        supportFragmentManager.beginTransaction()
-            .remove(fragment!!)
-            .commit()
+        supportFragmentManager.beginTransaction().remove(fragment!!).commit()
     }
 
     override fun onPause() {
@@ -63,13 +71,14 @@ class LandingActivity : AppCompatActivity(), PokemonNameRecyclerAdapter.NameClic
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-    }
-
-    class WatchSearchString(val adapter: PokemonNameRecyclerAdapter): TextWatcher {
+    inner class WatchSearchString(private val adapter: PokemonNameRecyclerAdapter): TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             adapter.searchString = s.toString()
+            if (s.toString() == "") {
+                if (fragment != null) {
+                    removeFragment()
+                }
+            }
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
